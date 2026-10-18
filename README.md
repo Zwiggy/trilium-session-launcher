@@ -6,9 +6,9 @@ A quick-launch menu and template manager for [Trilium Notes](https://github.com/
 
 ## Features
 
-* **Native Boxicon Picker:** Access Trilium's built-in library of 1,600+ Boxicons natively without external dependencies.
+* **Native Boxicon Picker:** Access Trilium's built-in library Boxicons natively without external dependencies.
 * **Fuzzy Search:** Filter templates, destination folders, and icons automatically while ignoring spaces and accents.
-* **Rich Text Template Editor:** Built-in WYSIWYG editor supporting custom headers, lists, bolding, colors, and background highlights.
+* **Rich Text Template Editor:** Built-in editor supporting custom headers, lists, bolding, colors, and background highlights.
 * **Dynamic Variables:** Inject `{{date}}`, `{{time}}`, or custom `{{prompt:Variable Name}}` tags that prompt for values upon creation.
 * **Automated Sync & Backups:** Configuration auto-saves to `_Session Launcher Config_`. Importing new configurations creates a timestamped backup automatically.
 * **Drag-and-Drop Ordering:** Reorder template buttons on the fly using the left drag handle.
