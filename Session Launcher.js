@@ -9,7 +9,7 @@
 
     const DEFAULTS = [
         { key: "learning", caption: "Learning session", parentId: "root", icon: "bx-book", noteIcon: "bx-book", titleColor: "#ff9800", attributes: "", template: "<h2>Goal</h2><p>What do I want to learn?</p>" },
-        { key: "capture", caption: "Quick capture", parentId: "root", icon: "bx-zap", noteIcon: "bx-zap", titleColor: "#4caf50", attributes: "", template: "<p></p><h2>Follow-up</h2><p></p>" },
+        { key: "capture", caption: "Quick capture", parentId: "root", icon: "bx-brain", noteIcon: "bx-brain", titleColor: "#4caf50", attributes: "", template: "<p></p><h2>Follow-up</h2><p></p>" },
         { key: "question", caption: "Question", parentId: "root", icon: "bx-target-lock", noteIcon: "bx-target-lock", titleColor: "#324ccd", attributes: "#question", template: "<h2>Question</h2><p></p><h2>Context</h2><p></p>" },
         { key: "idea", caption: "Idea", parentId: "root", icon: "bx-bulb", noteIcon: "bx-bulb", titleColor: "#26a69a", attributes: "", template: "<h2>Idea</h2><p></p>" },
         { key: "playbook", caption: "Playbook entry", parentId: "root", icon: "bx-code-alt", noteIcon: "bx-code-alt", titleColor: "#9c27b0", attributes: "#guide", template: "<h2>Purpose: {{prompt:Tool Name}}</h2><p></p>" }
