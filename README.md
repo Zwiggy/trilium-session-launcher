@@ -93,4 +93,4 @@ Safely export or import JSON configurations with automated backup creation.
 
 ## License
 
-[MIT License](LICENSE)
+[MIT License](LICENSE.txt)
