@@ -111,6 +111,17 @@
             .sl-color::-webkit-color-swatch-wrapper { padding: 0 }
             .sl-color::-webkit-color-swatch { border: 0; border-radius: 5px }
             @media(prefers-reduced-motion: reduce) { .sl-panel, .sl-btn, .sl-item { animation: none !important; transition: none !important } }
+            
+            /* Responsive Mobile Adjustments */
+            @media (max-width: 600px) {
+                .sl-panel { padding: 16px 12px !important; width: 96vw !important; }
+                .sl-row { gap: 4px !important; }
+                .sl-main { overflow: hidden; padding: 10px 8px !important; }
+                .sl-main b { display: inline-block; max-width: calc(100% - 35px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: middle; }
+                .sl-main small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+                .sl-icon { padding: 5px !important; }
+                .sl-hints { display: none !important; }
+            }
         `;
         document.head.appendChild(styleEl);
     }
@@ -688,7 +699,7 @@
                     <section class="sl-panel" role="dialog" aria-modal="true" style="width:min(680px,96vw);max-height:90vh;display:flex;flex-direction:column;padding:22px;background:var(--main-background-color,#fff);color:var(--main-text-color,#111);border-radius:14px">
                         <input id="sl-search" class="sl-input" placeholder="Search templates and folders..." style="padding:13px;margin-bottom:16px">
                         <div class="sl-list sl-scroll" style="overflow:auto;flex:1">${rowsHtml}</div>
-                        <small style="text-align:center;opacity:.5;margin:10px">↑ ↓ Navigate • Enter Launch • Esc Close</small>
+                        <small class="sl-hints" style="text-align:center;opacity:.5;margin:10px">↑ ↓ Navigate • Enter Launch • Esc Close</small>
                         <div style="display:flex;gap:8px;border-top:1px solid var(--main-border-color,#777);padding-top:14px">
                             <button class="sl-btn sl-new" style="flex:1;padding:11px">${ICON.plus} New Template</button>
                             <button class="sl-btn sl-export" title="Export">${ICON.up}</button>
