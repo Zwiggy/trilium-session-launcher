@@ -22,12 +22,25 @@ It provides a front-end overlay to rapidly create formatted notes, journal entri
 ## Installation
 
 1. Open your Trilium workspace.
-2. Create a new Note and set the title to `Session Launcher`.
-3. Set the Note Type to **JS Frontend**.
-4. Paste the contents of `session-launcher.js` into the note editor.
-5. Add the label attribute `#run=front` to the note.
+2. Create a new Note, set its type to **JS Frontend**, and title it `Session Launcher`.
+3. Paste the contents of `session-launcher.js` into the note editor.
 
-*Tip: Assign a keybinding to this note in Trilium's shortcut settings, or add it to your launcher bar for single-click access.*
+### Adding to the Launchbar & Setting a Shortcut (Recommended)
+The best way to use the Session Launcher is to pin it to your sidebar and give it a quick hotkey.
+
+1. Right-click your left-hand sidebar and select **Configure Launchbar**.
+2. Drag the **Script Launcher** widget into your active bar.
+3. Click the gear icon on the new widget to open its settings.
+4. Set the "Note" field to your `Session Launcher` note.
+5. Click inside the **Shortcut** field and **type out** your desired shortcut manually (e.g., type `alt+l` or `ctrl+space` letter by letter). 
+*Note: Pressing the actual key combination might not register in this field.*
+
+**Fallback Method** *(If "Script Launcher" is missing from your widget list):*
+1. Press `Alt+O` (or click the top-left Trilium menu -> **Show hidden notes**).
+2. Search for the system note titled `Launch Bar`.
+3. Clone your `Session Launcher` note so it sits as a child underneath the `Launch Bar` note.
+4. Add an `iconClass` label (e.g., `bx bx-rocket`) to the clone to give it a sidebar icon. 
+5. Add a `~shortcut` label (e.g., `~shortcut=alt+l`) to the clone to assign your hotkey.
 
 ## Usage & Controls
 
