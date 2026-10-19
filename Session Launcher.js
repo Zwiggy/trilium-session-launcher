@@ -8,11 +8,11 @@
     };
 
     const DEFAULTS = [
-        { key: "learning", caption: "Learning session", parentId: "root", icon: "bx-book", noteIcon: "bx-book", titleColor: "#ff9800", attributes: "", template: "<h2>Goal</h2><p>What do I want to learn?</p>" },
-        { key: "capture", caption: "Quick capture", parentId: "root", icon: "bx-brain", noteIcon: "bx-brain", titleColor: "#4caf50", attributes: "", template: "<p></p><h2>Follow-up</h2><p></p>" },
-        { key: "question", caption: "Question", parentId: "root", icon: "bx-target-lock", noteIcon: "bx-target-lock", titleColor: "#324ccd", attributes: "#question", template: "<h2>Question</h2><p></p><h2>Context</h2><p></p>" },
-        { key: "idea", caption: "Idea", parentId: "root", icon: "bx-bulb", noteIcon: "bx-bulb", titleColor: "#26a69a", attributes: "", template: "<h2>Idea</h2><p></p>" },
-        { key: "playbook", caption: "Playbook entry", parentId: "root", icon: "bx-code-alt", noteIcon: "bx-code-alt", titleColor: "#9c27b0", attributes: "#guide", template: "<h2>Purpose: {{prompt:Tool Name}}</h2><p></p>" }
+        { key: "learning", caption: "Learning session", titlePattern: "{{date}} {{time}} - {{caption}}", parentId: "root", icon: "bx-book", noteIcon: "bx-book", titleColor: "#ff9800", attributes: "", template: "<h2>Goal</h2><p>What do I want to learn?</p>" },
+        { key: "capture", caption: "Quick capture", titlePattern: "{{date}} {{time}} - {{caption}}", parentId: "root", icon: "bx-brain", noteIcon: "bx-brain", titleColor: "#4caf50", attributes: "", template: "<p></p><h2>Follow-up</h2><p></p>" },
+        { key: "question", caption: "Question", titlePattern: "{{date}} {{time}} - {{caption}}", parentId: "root", icon: "bx-target-lock", noteIcon: "bx-target-lock", titleColor: "#324ccd", attributes: "#question", template: "<h2>Question</h2><p></p><h2>Context</h2><p></p>" },
+        { key: "idea", caption: "Idea", titlePattern: "{{date}} {{time}} - {{caption}}", parentId: "root", icon: "bx-bulb", noteIcon: "bx-bulb", titleColor: "#26a69a", attributes: "", template: "<h2>Idea</h2><p></p>" },
+        { key: "playbook", caption: "Playbook entry", titlePattern: "{{date}} {{time}} - {{caption}}", parentId: "root", icon: "bx-code-alt", noteIcon: "bx-code-alt", titleColor: "#9c27b0", attributes: "#guide", template: "<h2>Purpose: {{prompt:Tool Name}}</h2><p></p>" }
     ];
 
     const Utils = {
@@ -209,6 +209,7 @@
                 item.icon = IconService.get(item.icon);
                 item.noteIcon = item.noteIcon || "";
                 item.titleColor = Utils.color(item.titleColor);
+                item.titlePattern = item.titlePattern || "{{date}} {{time}} - {{caption}}";
                 item.attributes = item.attributes || "";
                 item.template = item.template || "";
             }
@@ -568,9 +569,19 @@
 
     async function showEditorDialog(actionConfig) {
         const action = actionConfig || {};
+        const defaultPattern = action.titlePattern || "{{date}} {{time}} - {{caption}}";
+
         const contentHtml = `
-            <label>Button Name</label>
-            <input data-autofocus id="sl-caption" class="sl-input" value="${Utils.esc(action.caption || "")}" style="width:100%;padding:11px;margin:6px 0 18px">
+            <label style="display:block;font-weight:600;margin-bottom:4px">Button Name</label>
+            <input data-autofocus id="sl-caption" class="sl-input" value="${Utils.esc(action.caption || "")}" style="width:100%;padding:11px;margin-bottom:14px">
+            
+            <label style="display:block;font-weight:600;margin-bottom:4px">Title Format Pattern</label>
+            <input id="sl-title-pattern" class="sl-input" value="${Utils.esc(defaultPattern)}" style="width:100%;padding:10px;margin-bottom:4px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:6px">
+                <small id="sl-title-preview" style="font-weight:600;opacity:.85;color:var(--main-text-color,#111)"></small>
+                <small style="opacity:.5">Tags: {{year}}, {{month}}, {{day}}, {{date}}, {{time}}, {{weekday}}, {{caption}}</small>
+            </div>
+
             <div style="display:flex;gap:15px">
                 <div style="flex:1"><b>Launcher icon</b>${buildPickerHtml(IconService.get(action.icon), "launchicon")}</div>
                 <div style="flex:1"><b>Note icon</b>${buildPickerHtml(action.noteIcon || "", "noteicon")}</div>
@@ -590,6 +601,19 @@
             mount: function($wrapper) {
                 bindPickerEvents($wrapper, "launchicon");
                 bindPickerEvents($wrapper, "noteicon");
+
+                function updateTitlePreview() {
+                    const pattern = $wrapper.find("#sl-title-pattern").val() || "{{date}} {{time}} - {{caption}}";
+                    const caption = $wrapper.find("#sl-caption").val() || "Template Name";
+                    let preview = pattern.replace(/\{\{caption\}\}/g, caption);
+                    preview = Variables.apply(preview, {}, false);
+                    preview = preview.replace(/\{\{prompt:.*?\}\}/g, "[Prompt]");
+                    $wrapper.find("#sl-title-preview").text("Preview: " + preview);
+                }
+
+                $wrapper.find("#sl-title-pattern, #sl-caption").on("input", updateTitlePreview);
+                updateTitlePreview();
+
                 return bindToolbarEvents($wrapper,$wrapper.find("#sl-editor")[0]);
             },
             validate: function($wrapper) {
@@ -600,6 +624,7 @@
                 }
                 return {
                     caption: captionVal,
+                    titlePattern: String($wrapper.find("#sl-title-pattern").val() || "").trim() || "{{date}} {{time}} - {{caption}}",
                     icon: $wrapper.find(".launchicon-item.active").data("class") || "bx-file",
                     noteIcon: $wrapper.find(".noteicon-item.active").data("class") || "",
                     titleColor: $wrapper.find("#sl-color").val(),
@@ -850,8 +875,9 @@
             parentNote = newTarget;
         }
         
-        const timeContext = Utils.now();
-        let computedTitle = timeContext.date + " " + timeContext.time + " - " + action.caption;
+        const pattern = action.titlePattern || "{{date}} {{time}} - {{caption}}";
+        let computedTitle = pattern.replace(/\{\{caption\}\}/g, action.caption);
+
         const requiredPrompts = Variables.prompts(computedTitle + " " + action.template);
         let answers = {};
         
