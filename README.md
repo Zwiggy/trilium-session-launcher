@@ -1,6 +1,6 @@
 # Trilium Session Launcher
 
-A quick-launch menu and template manager for [Trilium Notes](https://github.com/zadam/trilium). It provides a front-end overlay to rapidly create formatted notes, journal entries, and templates in targeted folders directly from a popup dialog.
+A quick-launch menu and template manager for [Trilium Notes](https://github.com/TriliumNext/Trilium). It provides a front-end overlay to rapidly create formatted notes, journal entries, and templates in targeted folders directly from a popup dialog.
 
 ![Session Launcher Main Menu](main-menu.png)
 
