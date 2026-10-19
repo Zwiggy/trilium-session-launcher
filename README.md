@@ -1,20 +1,23 @@
 # Trilium Session Launcher
 
-A quick-launch menu and template manager for [Trilium Notes](https://github.com/TriliumNext/Trilium). It provides a front-end overlay to rapidly create formatted notes, journal entries, and templates in targeted folders directly from a popup dialog.
+A quick-launch menu and template manager for [Trilium Notes](https://github.com/TriliumNext/Trilium).
+It provides a front-end overlay to rapidly create formatted notes, journal entries, and templates in targeted folders directly from a single unified popup dialog.
 
 ![Session Launcher Main Menu](main-menu.png)
 
 ## Features
 
-* **Native Boxicon Picker:** Access Trilium's built-in library Boxicons natively without external dependencies.
-* **Fuzzy Search:** Filter templates, destination folders, and icons automatically while ignoring spaces and accents.
-* **Rich Text Template Editor:** Built-in editor supporting custom headers, lists, bolding, colors, and background highlights.
-* **Dynamic Variables:** Inject `{{date}}`, `{{time}}`, or custom `{{prompt:Variable Name}}` tags that prompt for values upon creation.
-* **Automated Sync & Backups:** Configuration auto-saves to `_Session Launcher Config_`. Importing new configurations creates a timestamped backup automatically.
-* **Drag-and-Drop Ordering:** Reorder template buttons on the fly using the left drag handle.
-* **Full Keyboard Navigation:** Navigate using `↑` / `↓` arrow keys, press `Enter` to launch, and `Esc` to close.
-
----
+- **Unified Launch Dialog:** Input variables, tweak note titles, change icons, and add extra on-the-fly notes within a single, streamlined window.
+- **Live Destination Picker:** Find target folders instantly using a fuzzy-search popup, or paste a Note ID directly.
+- **Active Note Targeting:** Set a template's destination to `@active` to automatically create the new note as a child of the note you are currently viewing.
+- **Dynamic Variables & Defaults:** Inject `{{date}}`, `{{time}}`, `{{activeNote}}`, `{{activeNoteLink}}`, or custom prompts with fallback defaults like `{{prompt:Project Name|Untitled}}`.
+- **Custom Title Patterns:** Define automated title structures for each template (e.g., `{{date}} - {{caption}}`) with live previews in the editor.
+- **Rich Text Template Editor:** Built-in editor supporting custom headers, lists, bolding, colors, and background highlights.
+- **Colored Launcher Buttons:** Main menu buttons automatically inherit your template's assigned color for rapid visual muscle-memory.
+- **Mobile-Friendly Reordering:** Easily rearrange your templates using dedicated Up/Down arrow buttons optimized for phone screens, alongside the standard drag-and-drop grip for desktop users.
+- **State Preservation:** The menu remembers your scroll position and search queries when returning from the editor or launch screens.
+- **Native Boxicon Picker:** Access Trilium's built-in Boxicons natively without external dependencies.
+- **Automated Sync & Backups:** Configuration auto-saves to `_Session Launcher Config_`. Importing new configurations creates a timestamped backup automatically.
 
 ## Installation
 
@@ -32,8 +35,9 @@ A quick-launch menu and template manager for [Trilium Notes](https://github.com/
 | :--- | :--- |
 | **Navigate List** | `↑` / `↓` Arrow keys |
 | **Launch Selected** | `Enter` key or click item row |
+| **Quick Launch** | `Alt` + `1-9` number keys |
 | **Close Menu** | `Esc` key or **Close** button |
-| **Reorder Item** | Drag the left grip handle (`:::`) |
+| **Reorder Item** | **Up/Down arrows**, left grip handle (`:::`), or `Alt` + `↑` / `↓` |
 | **Edit Item** | Pencil icon (`✏️`) |
 | **Change Folder** | Gear icon (`⚙️`) |
 | **Duplicate Item** | Copy icon (`📋`) |
